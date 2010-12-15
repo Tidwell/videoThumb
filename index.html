@@ -6,9 +6,10 @@
 		<script type="text/javascript" src="makethumb.js"></script>
 		<style type="text/css">
 		  #thumbImg,
-		  #thumbImg2 {
+		  #thumbImg2, #thumbImg3 {
 		    border: 1px solid;
 		    position: relative;
+		    cursor: pointer;
 		  }
 		  
 		  .playBtn {
@@ -43,17 +44,35 @@
         numFrames: 10,
         minOffset: 5,
         duration: 300,
-        static: 'thumb.png'
+        static: 'thumb.png',
+        showStaticOff: true
       })
+      makeThumb({
+        src: 'video.ogg.ogv',
+        thumbSelector: '#thumbImg3',
+        height: '150',
+        width: '150',
+        numFrames: 1,
+        minOffset: 40,
+        duration: 300,
+        static: 'thumb.png',
+        showStaticOff: true
+      })
+      
 		});
 		</script>
 	</head>
 	<body>
+	 <p>Requires JQuery.  On hover, will cycle through the video to create a number of preview thumbnail frames and will continue to cycle through while hovered.  Use numFrames: 1 to have a single frame pulled from the video (and minOffset, to set where that comes from).  Use showStaticOff to revert to the static image on hover-off.  duration is how long each frame will last</p>
 	 <div id="thumbImg">
 	   <a href="#" class="playBtn">Play</a>
 	 </div>
 	 <br /><br />
 	  <div id="thumbImg2">
+	   <a href="#" class="playBtn">Play</a>
+	 </div>
+	  <br /><br />
+	  <div id="thumbImg3">
 	   <a href="#" class="playBtn">Play</a>
 	 </div>
 

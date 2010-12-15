@@ -38,6 +38,9 @@ function makeThumb(obj) {
   var stopCycle = true;
   $(thumbEl).hover(function() {
     stopCycle = false;
+    if (obj.showStaticOff) {
+      $('#'+id).show();
+    }
     //get the interval for each frame
     var interval = Math.floor(v.duration/numSegs);
     //do the load and the draw
@@ -46,6 +49,9 @@ function makeThumb(obj) {
   }, function() {
     //on hover out stop the draw
     stopCycle = true;
+    if (obj.showStaticOff) {
+      $('#'+id).hide();
+    }
   });
   
   
@@ -96,9 +102,11 @@ function makeThumb(obj) {
   
   //when the video has loaded a frame
   v.addEventListener("timeupdate", function() {
-    //draw and cache the image
-    loadcontext.drawImage(v,0,0,thumbW,thumbH);
-    thumbs.push(loadcontext.getImageData(0,0,thumbW,thumbH))
-    //console.log('cached'+thumbs.length);
+    if (thumbs.length != numSegs) {
+      //draw and cache the image
+     loadcontext.drawImage(v,0,0,thumbW,thumbH);
+     thumbs.push(loadcontext.getImageData(0,0,thumbW,thumbH))
+     //console.log('cached'+thumbs.length);
+    }
   }, false);
 }
