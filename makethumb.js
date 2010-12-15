@@ -3,7 +3,7 @@ function makeThumb(obj) {
       thumbEl   = $(obj.thumbSelector),
       thumbH    = obj.height,
       thumbW    = obj.width,
-      numSegs   = obj.numSegments,
+      numSegs   = obj.numFrames,
       staticImg = obj.static;
     
   
