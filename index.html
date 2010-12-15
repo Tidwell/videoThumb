@@ -48,15 +48,15 @@
         showStaticOff: true
       })
       makeThumb({
-        src: 'video.ogg.ogv',
-        thumbSelector: '#thumbImg3',
-        height: '150',
-        width: '150',
-        numFrames: 1,
-        minOffset: 40,
-        duration: 300,
-        static: 'thumb.png',
-        showStaticOff: true
+        src: 'video.ogg.ogv', //relative to the page
+        thumbSelector: '#thumbImg3', //css selector
+        height: '150', //px
+        width: '150', //px
+        numFrames: 1, //int
+        minOffset: 40.9, //seconds (can use decimals to pinpoint start frame)
+        duration: 300, //milliseconds
+        static: 'thumb.png', //relative to the page
+        showStaticOff: true //bool
       })
       
 		});
