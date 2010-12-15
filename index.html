@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>HTML5 Video Thumbnail Demo</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+		<style type="text/css">
+		  #thumbImg,
+		  #thumbImg2 {
+		    border: 1px solid;
+		  }
+		</style>
+		<script type="text/javascript">
+		$(document).ready(function() {
+		  function makeThumb(obj) {
+		    var videoPath = obj.src,
+		        thumbEl   = $(obj.thumbSelector),
+		        thumbH    = obj.height,
+		        thumbW    = obj.width,
+		        numSegs   = obj.numSegments;
+		      
+		    
+		    //create id
+		    var id = 'thumbCanvas'+Math.floor(Math.random()*9999999);
+		    //append canvas
+  		  thumbEl.append('<canvas id="'+id+'"></canvas>');
+  		  //get canvas and set width/height
+  		  var canvas = document.getElementById(id);
+  		  canvas.height = thumbH;
+  		  canvas.width = thumbW;
+  		  
+  		  thumbEl.css('width', thumbW+'px');
+  		  thumbEl.css('height', thumbH+'px');
+  		  
+        var context = canvas.getContext('2d');
+        var v = document.createElement('video');
+        v.src = videoPath;
+        v.id = 'vid'+id;
+        v.style.display = "none";
+        $('body').append(v)
+        v.volume = 0;
+        v = document.getElementById('vid'+id);
+        
+        
+        var stopCycle = true;
+        $(thumbEl).hover(function() {
+          //v.play();
+          stopCycle = false;
+          var interval = Math.floor(v.duration/numSegs);
+          //console.log(interval);
+          draw(v, context, thumbW, thumbH, interval);
+        }, function() {
+          stopCycle = true;
+        });
+        
+        
+        var count = 0;
+        var thumbs = [];
+        function draw(v,c,w,h, interval) {
+          if (stopCycle) return false;
+                   
+          if (thumbs[count]) {
+            c.putImageData(thumbs[count],0,0);
+            //console.log('cached');
+          }
+          else {
+            if (count == 0) v.currentTime = obj.minOffset || 0
+            else v.currentTime = (count*interval);
+          }
+          
+          count++;
+          if (count*interval >= v.duration) {
+            count = 0; 
+          }
+          setTimeout(draw,obj.duration,v,c,w,h, interval);
+        }
+        
+        v.addEventListener("timeupdate", function() {
+             context.drawImage(v,0,0,thumbW,thumbH);
+             thumbs.push(context.getImageData(0,0,thumbW,thumbH))
+             //console.log('created');
+             $('body').append('<canvas width="100" height="100"></canvas>');
+             $('canvas')[$('canvas').length-1].getContext('2d').putImageData(thumbs[thumbs.length-1], 0, 0);
+             $('ul').append('<li>'+v.currentTime+'</li>')
+            
+        }, false);
+      }
+      
+      makeThumb({
+        src: 'video.ogg.ogv',
+        thumbSelector: '#thumbImg',
+        height: '100',
+        width: '100',
+        numSegments: 15,
+        minOffset: 0,
+        duration: 300
+      })
+      
+    
+		});
+		</script>
+	</head>
+	<body>
+	 <div id="thumbImg"></div>
+	 <div id="thumbImg2"></div>
+	 <ul></ul>
+	</body>
+</html>
