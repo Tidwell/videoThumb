@@ -12,12 +12,15 @@
 		  }
 		  
 		  .playBtn {
-		    display: block;
-		    position: absolute;
-		    top: 50%;
-		    left: 50%;
-		    margin-left: -25px;
-		    margin-top: -25px;
+        background: url("play.png") no-repeat scroll 0 0 transparent;
+        display: block;
+        height: 50px;
+        right: -15px;
+        position: absolute;
+        text-indent: -9999px;
+        bottom: -15px;
+        width: 50px;
+
 		  }
 		</style>
 		<script type="text/javascript">
@@ -29,9 +32,23 @@
         width: '100',
         numSegments: 15,
         minOffset: 0,
-        duration: 150,
+        duration: 200,
         static: 'thumb.png'
       })
+      makeThumb({
+        src: 'video.ogg.ogv',
+        thumbSelector: '#thumbImg2',
+        height: '150',
+        width: '150',
+        numSegments: 10,
+        minOffset: 5,
+        duration: 300,
+        static: 'thumb.png'
+      })
+
+      
+
+
             
     
 		});
@@ -41,5 +58,11 @@
 	 <div id="thumbImg">
 	   <a href="#" class="playBtn">Play</a>
 	 </div>
+	 <br /><br />
+	  <div id="thumbImg2">
+	   <a href="#" class="playBtn">Play</a>
+	 </div>
+
+	 
 	 </body>
 </html>
