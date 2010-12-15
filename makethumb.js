@@ -101,12 +101,21 @@ function makeThumb(obj) {
   var loadcontext = loadcanvas.getContext('2d');
   
   //when the video has loaded a frame
-  v.addEventListener("timeupdate", function() {
+  v.addEventListener("timeupdate", function(e) {
+    //make sure we haven't already cached all the frames
     if (thumbs.length != numSegs) {
-      //draw and cache the image
-     loadcontext.drawImage(v,0,0,thumbW,thumbH);
-     thumbs.push(loadcontext.getImageData(0,0,thumbW,thumbH))
-     //console.log('cached'+thumbs.length);
+      //because chrome fires timeupdate when the video first loads and firefox doesn't,
+      //we have to make sure that if currentTime is 0, the user actually wants to cache the
+      //frame at time 0
+      if (e.target.currentTime == 0 && obj.minOffset != 0) {
+        return false;
+      }
+      else {
+        //draw and cache the image
+        loadcontext.drawImage(v,0,0,thumbW,thumbH);
+        thumbs.push(loadcontext.getImageData(0,0,thumbW,thumbH))
+        //console.log('cached'+thumbs.length);
+      }
     }
   }, false);
 }

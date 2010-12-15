@@ -32,7 +32,7 @@
         height: '100',
         width: '100',
         numFrames: 15,
-        minOffset: 0,
+        minOffset: 2,
         duration: 200,
         static: 'thumb.png'
       })
@@ -63,7 +63,7 @@
 		</script>
 	</head>
 	<body>
-	 <p>Requires JQuery.  On hover, will cycle through the video to create a number of preview thumbnail frames and will continue to cycle through while hovered.  Use numFrames: 1 to have a single frame pulled from the video (and minOffset, to set where that comes from).  Use showStaticOff to revert to the static image on hover-off.  duration is how long each frame will last</p>
+	 <p>Requires JQuery.  On hover, will cycle through the video to create a number of preview thumbnail frames and will continue to cycle through while hovered.  Use numFrames: 1 to have a single frame pulled from the video (and minOffset, to set where that comes from).  Use showStaticOff to revert to the static image on hover-off.  duration is how long each frame will last.  If you view source, you'll notice that the element you pass in can be arbitrarily styled and can contain arbitrary elements inside it (in this example, we added a play button with an anchor).</p>
 	 <div id="thumbImg">
 	   <a href="#" class="playBtn">Play</a>
 	 </div>
